@@ -1,0 +1,56 @@
+package org.langqiao.stackqueue.impl;
+
+import org.langqiao.exception.StackEmptyException;
+import org.langqiao.linear.impl.SLNode;
+import org.langqiao.stackqueue.intf.Stack;
+
+
+/**
+ * 
+ * 栈的链式存储实现
+ * @author YMY
+ */
+public class StackSLinked implements Stack{
+
+	private SLNode top;//栈顶节点
+	private int size;	//栈中数据元素的个数
+	
+	public StackSLinked(){
+		 top = null;
+		 size = 0;
+	}
+	@Override
+	public int getSize() {
+		return size;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return size == 0;
+	}
+
+	@Override
+	public void push(Object e) {
+		SLNode q = new SLNode(e,top);
+		top = q;
+		size ++;
+	}
+
+	@Override
+	public Object pop() throws StackEmptyException {
+		if(size < 1 )
+			throw new StackEmptyException("错误，堆栈为空！");
+		Object obj = top.getData();
+		top = top.getNext();
+		size -- ;
+		return obj;
+	}
+
+	@Override
+	public Object peek() throws StackEmptyException {
+		if(size < 1)
+			throw new StackEmptyException("错误，堆栈为空！");
+		return top.getData();
+	}
+	
+}
